@@ -1,0 +1,62 @@
+<div
+  class="px-6 py-4 border-b w-full"
+  fxLayout="row"
+  style="width: 300px"
+  fxLayoutAlign="start center"
+>
+  <h2 class="title m-0">Add Existing Contact</h2>
+</div>
+
+<div class="px-6 py-0" fxLayout="column">
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <mat-form-field class="w-full">
+      <mat-label>Existing Contact</mat-label>
+      <input
+        type="text"
+        matInput
+        [formControl]="contact"
+        [matAutocomplete]="companyAutoComplete"
+      />
+      <mat-autocomplete
+        #companyAutoComplete="matAutocomplete"
+        [displayWith]="displayContact"
+        (optionSelected)="selectContact($event.option.value)"
+      >
+        <mat-option
+          *ngFor="let option of filteredOptions | async"
+          [value]="option"
+        >
+          {{ option.displayName }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="px-6 py-4" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+    <button
+      color="secondary"
+      mat-raised-button
+      type="button"
+      (click)="AddNewContact()"
+    >
+      Add New Contact
+    </button>
+    <button mat-button type="button" (click)="closeModal()">CANCEL</button>
+    <button
+      color="primary"
+      mat-raised-button
+      type="button"
+      (click)="saveContact()"
+      [disabled]="isSaving"
+    >
+      SAVE
+    </button>
+  </div>
+</div>

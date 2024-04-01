@@ -1,0 +1,87 @@
+<ng-container *ngIf="Members$ | async as members">
+  <vex-secondary-toolbar current="Member List">
+    <vex-breadcrumbs
+      [crumbs]="[{ title: 'Member List', routerLink: '/members' }]"
+      fxFlex="auto"
+    ></vex-breadcrumbs>
+  </vex-secondary-toolbar>
+  <ngx-datatable
+    [columnMode]="ColumnMode.force"
+    #ngxTable
+    class="material"
+    [rows]="members"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="50"
+    [scrollbarH]="true"
+    (page)="(50)"
+  >
+    <ngx-datatable-column
+      name="Member Number"
+      [sortable]="true"
+      prop="memberNumber"
+    >
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column
+      name="Member Name"
+      [sortable]="true"
+      prop="memberName"
+    >
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column
+      name="Member Status"
+      [sortable]="true"
+      prop="memberStatus"
+    >
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column
+      name="Type of Organization"
+      [sortable]="true"
+      prop="organizationType"
+    >
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column
+      name="Primary Contact Name"
+      [sortable]="true"
+      prop="primaryContact.displayName"
+    >
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column
+      name="Primary Contact Email"
+      [sortable]="true"
+      prop="primaryContact.email"
+    >
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        {{ value }}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="options" prop="memberId">
+      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+        <button
+          mat-icon-button
+          matTooltip="View Details"
+          (click)="viewDetails(row)"
+          matRipple
+          color="primary"
+        >
+          View Details
+        </button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</ng-container>

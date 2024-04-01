@@ -1,0 +1,147 @@
+<div [style]="this.GetIndentSpaces()">
+  <div [ngSwitch]="ApplicationElement.elementType" [formGroup]="this.form">
+    <ng-container *ngSwitchCase="elementType.Currency">
+      <div class="outside-form-label" *ngIf="this.showLabel">
+        {{ ApplicationElement.label }}
+      </div>
+
+      <mat-form-field floatLabel="never">
+        <input
+          [formControlName]="formControlName()"
+          matInput
+          #lengthHint
+          currencyMask
+          [errorStateMatcher]="matcher"
+          [width]="this.GetElementWidth()"
+          [options]="{ precision: ApplicationElement.decimalPrecision }"
+        />
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngSwitchCase="elementType.LargeText">
+      <div class="outside-form-label" *ngIf="this.showLabel">
+        {{ ApplicationElement.label }}
+      </div>
+      <mat-form-field *ngSwitchCase="elementType.LargeText" floatLabel="never">
+        <textarea
+          [formControlName]="formControlName()"
+          [errorStateMatcher]="matcher"
+          matInput
+          #lengthHint
+        ></textarea>
+      </mat-form-field>
+    </ng-container>
+
+    <div *ngSwitchCase="elementType.Checkbox">
+      <input type="checkbox" [formControlName]="formControlName()" />
+      <mat-label class="ml-2">{{ ApplicationElement.label }}</mat-label>
+    </div>
+    <ng-container *ngSwitchCase="elementType.Text">
+      <div class="outside-form-label" *ngIf="this.showLabel">
+        {{ ApplicationElement.label }}
+      </div>
+      <mat-form-field floatLabel="never">
+        <input
+          [formControlName]="formControlName()"
+          #lengthHint
+          matInput
+          [errorStateMatcher]="matcher"
+        />
+      </mat-form-field>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="elementType.Integer">
+      <div class="outside-form-label" *ngIf="this.showLabel">
+        {{ ApplicationElement.label }}
+      </div>
+      <mat-form-field floatLabel="never">
+        <input
+          [formControlName]="formControlName()"
+          type="number"
+          [width]="this.GetElementWidth()"
+          [errorStateMatcher]="matcher"
+          #lengthHint
+          matInput
+        />
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngSwitchCase="elementType.SingleSelect">
+      <div class="outside-form-label" *ngIf="this.showLabel">
+        {{ ApplicationElement.label }}
+      </div>
+      <mat-form-field floatLabel="never">
+        <mat-select
+          [formControlName]="formControlName()"
+          [errorStateMatcher]="matcher"
+        >
+          <mat-option
+            *ngFor="let selectOption of ApplicationElement.selectOptions"
+            [value]="selectOption.value"
+          >
+            {{ selectOption.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngSwitchCase="elementType.MultiSelect">
+      <div class="outside-form-label" *ngIf="this.showLabel">
+        {{ ApplicationElement.label }}
+      </div>
+      <mat-form-field
+        *ngSwitchCase="elementType.MultiSelect"
+        floatLabel="never"
+      >
+        <mat-select
+          [formControlName]="formControlName()"
+          multiple="true"
+          fxFlex="none"
+          [errorStateMatcher]="matcher"
+        >
+          <mat-option
+            *ngFor="let selectOption of ApplicationElement.selectOptions"
+            [value]="selectOption.value"
+          >
+            {{ selectOption.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+    <p [class]="GetHTMLClasses()" *ngSwitchCase="elementType.Html">
+      {{ ApplicationElement?.longText }}
+    </p>
+    <div *ngSwitchCase="elementType.Attachment">
+      <mat-label>{{ ApplicationElement.label }}</mat-label>
+      File Upload Control
+    </div>
+    <ng-container *ngSwitchCase="elementType.Email">
+      <div class="outside-form-label" *ngIf="this.showLabel">
+        {{ ApplicationElement.label }}
+      </div>
+      <mat-form-field floatLabel="never">
+        <input
+          [formControlName]="formControlName()"
+          matInput
+          type="email"
+          [errorStateMatcher]="matcher"
+          [width]="this.GetElementWidth()"
+        />
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngSwitchCase="elementType.Date">
+      <div class="outside-form-label" *ngIf="this.showLabel">
+        {{ ApplicationElement.label }}
+      </div>
+      <mat-form-field floatLabel="never">
+        <input
+          [formControlName]="formControlName()"
+          matInput
+          type="date"
+          [errorStateMatcher]="matcher"
+          [width]="this.GetElementWidth()"
+        />
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="HasPreviousResponse()">
+      <div class="previousResponse">Previous: {{ PreviousResponse() }}</div>
+    </ng-container>
+  </div>
+</div>

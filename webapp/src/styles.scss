@@ -1,0 +1,43 @@
+//importing variables
+@import './app/styles/_variables';
+@import "~simplebar/dist/simplebar.css";
+@import "~highlight.js/styles/androidstudio.css";
+// Vex Core
+@import "./@vex/styles/core";
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+@import "./app/styles/loading.scss";
+/*
+  You can override any CSS Variable or style here
+  Example:
+
+  :root {
+   --sidenav-background: #333333;
+  }
+
+  All possible variables can be found in @vex/styles/core or by simply inspecting the element you want to change
+  in Chrome/Firefox DevTools
+*/
+
+/**
+  Uncomment the below code and adjust the values to fit your colors, the application will automatically adjust
+ */
+:root {
+   --color-primary: 1, 143, 191;
+   --color-primary-contrast: 255, 255, 255;
+
+   --color-accent: 238, 115, 35;
+  --color-accent-contrast: 255,255,255;
+
+  // --color-warn: yellow;
+  // --color-warn-contrast: black;
+}
+.datatable-row-even {
+  //background-color: red;
+}
+
+.datatable-row-odd {
+  background-color: lightgray;
+} 
+

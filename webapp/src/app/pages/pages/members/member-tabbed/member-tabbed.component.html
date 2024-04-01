@@ -1,0 +1,56 @@
+<vex-page-layout>
+  <vex-secondary-toolbar current="Member Details">
+    <vex-breadcrumbs
+      [crumbs]="[
+        { title: 'Member List', routerLink: '/members' },
+        { title: 'Member Details' }
+      ]"
+      fxFlex="auto"
+    ></vex-breadcrumbs>
+  </vex-secondary-toolbar>
+  <vex-page-layout-content class="vex-tabs p-0" vexContainer>
+    <mat-tab-group
+      #t
+      [selectedIndex]="tabIndex"
+      (selectedIndexChange)="selectedIndexChange($event)"
+    >
+      <mat-tab label="Member Info">
+        <div class="p-0">
+          <vex-member-details></vex-member-details>
+        </div>
+      </mat-tab>
+      <mat-tab label="Contacts">
+        <div class="p-0">
+          <vex-member-contact-list
+            #contactlist
+            (selectContact)="onContactSelection($event)"
+          ></vex-member-contact-list>
+        </div>
+      </mat-tab>
+      <mat-tab label="Contact Details" *ngIf="showContactDetails">
+        <div class="p-0">
+          <vex-member-contact-details
+            [ContactId]="selectedContact"
+            (ContactSaved)="onContactSaved($event)"
+          ></vex-member-contact-details>
+        </div>
+      </mat-tab>
+      <ng-container
+        *ngIf="this.appUtilityService.UserProfile$ | async as userProfile"
+      >
+        <ng-container *ngIf="userProfile.isAdmin == true">
+          <mat-tab label="Notes">
+            <div class="p-0">
+              <vex-member-notes #notelist></vex-member-notes>
+            </div>
+          </mat-tab>
+          <mat-tab label="Attachments">
+            <div class="p-0">
+              <vex-member-attachments #attachmentlist></vex-member-attachments>
+            </div>
+          </mat-tab>
+        </ng-container>
+      </ng-container>
+    </mat-tab-group>
+  </vex-page-layout-content>
+</vex-page-layout>

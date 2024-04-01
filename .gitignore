@@ -1,0 +1,65 @@
+## C# / .NET
+# Build results
+[Oo]bj/
+[Bb]in/
+[Ll]og/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
+
+# .NET Core specific - Web project's .NET Core SDK specific files
+**/wwwroot/
+**/Views/
+**/Areas/**/*.Views/
+**/appsettings*.json
+
+# Rider
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files
+*.rsuser
+*.userprefs
+*.csproj.DotSettings.user
+*.slnx.sqlite
+
+# Mono Auto Generated Files
+mono_crash.*
+
+## Angular / Node
+# Dependencies
+/node_modules/
+/package-lock.json
+/yarn.lock
+
+# Compiled output
+/dist/
+/tmp/
+/out-tsc/
+
+# Logs
+/logs/
+*.log
+npm-debug.log*
+
+# IDE - VSCode
+.vscode/
+
+# IDE - Visual Studio, Rider
+*.csproj.user
+*.userprefs
+
+# Other
+.DS_Store
+*.swp
+*.lock

@@ -1,0 +1,351 @@
+<div @fadeInUp class="card" fxFlex="auto" *ngIf="ContactDetails">
+  <div class="px-6 py-4 border-b" fxLayout="row" fxLayoutAlign="start center">
+    <h2 class="title m-0">
+      {{ ContactDetails?.displayName }} - Contact Details
+    </h2>
+  </div>
+
+  <div class="px-6 py-0" fxLayout="column">
+    <div
+      fxLayout="row"
+      fxLayout.lt-sm="column"
+      fxLayoutGap="16px"
+      fxLayoutGap.lt-sm="0"
+    >
+      <mat-form-field fxFlex="auto">
+        <mat-label>Salutation</mat-label>
+        <input
+          matInput
+          maxlength="100"
+          required
+          [(ngModel)]="ContactDetails!.salutation"
+        />
+      </mat-form-field>
+      <mat-form-field fxFlex="auto">
+        <mat-label>First Name</mat-label>
+        <input
+          matInput
+          maxlength="100"
+          required
+          [(ngModel)]="ContactDetails!.firstName"
+        />
+      </mat-form-field>
+      <mat-form-field fxFlex="auto">
+        <mat-label>Last Name</mat-label>
+        <input
+          matInput
+          maxlength="100"
+          required
+          [(ngModel)]="ContactDetails!.lastName"
+        />
+      </mat-form-field>
+    </div>
+    <div
+      fxLayout="column"
+      fxLayout.gt-xs="row"
+      fxLayoutGap="8px"
+      fxLayoutGap.gt-xs="24px"
+    >
+      <mat-form-field fxFlex="auto">
+        <mat-label>Job Title</mat-label>
+        <input
+          matInput
+          maxlength="100"
+          required
+          [(ngModel)]="ContactDetails!.jobTitle"
+        />
+      </mat-form-field>
+      <mat-form-field fxFlex="auto">
+        <mat-label>Contact Type</mat-label>
+
+        <mat-select [(ngModel)]="ContactDetails!.contactType">
+          <mat-option value="PERMA">PERMA</mat-option>
+          <mat-option value="Member">Member</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div
+      fxLayout="column"
+      fxLayout.gt-xs="row"
+      fxLayoutGap="8px"
+      fxLayoutGap.gt-xs="24px"
+    >
+      <mat-form-field fxFlex="auto">
+        <mat-label>E-Mail</mat-label>
+        <input
+          [(ngModel)]="ContactDetails!.email"
+          matInput
+          required
+          maxlength="100"
+        />
+        <mat-hint align="end">example@example.com</mat-hint>
+      </mat-form-field>
+    </div>
+    <div
+      fxLayout="column"
+      fxLayout.gt-xs="row"
+      fxLayoutGap="8px"
+      fxLayoutGap.gt-xs="24px"
+    >
+      <div class="vas-obs vas-selected">
+        <div class="vas-obs-text checkbox-container">
+          <input
+            [(ngModel)]="ContactDetails!.isExecutiveCommitteeMember"
+            type="checkbox"
+          />
+          Is Executive Committee Member
+        </div>
+
+        <div class="vas-obs-text checkbox-container">
+          <input [(ngModel)]="ContactDetails!.isBoardMember" type="checkbox" />
+          Is Board Member
+        </div>
+      </div>
+    </div>
+
+    <h3>Address Information</h3>
+    <div class="px-0 py-0" fxLayout="column">
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <input
+          matInput
+          required
+          maxlength="300"
+          [(ngModel)]="ContactDetails.address1"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Address 2</mat-label>
+        <input
+          matInput
+          required
+          maxlength="300"
+          [(ngModel)]="ContactDetails.address2"
+        />
+      </mat-form-field>
+      <div
+        fxLayout="row"
+        fxLayout.lt-sm="column"
+        fxLayoutGap="16px"
+        fxLayoutGap.lt-sm="0"
+      >
+        <mat-form-field fxFlex="auto">
+          <mat-label>City</mat-label>
+          <input
+            matInput
+            required
+            maxlength="200"
+            [(ngModel)]="ContactDetails.city"
+          />
+        </mat-form-field>
+        <mat-form-field fxFlex="auto">
+          <mat-label>State</mat-label>
+          <mat-select [(ngModel)]="ContactDetails.state">
+            <mat-option value="AL">Alabama</mat-option>
+            <mat-option value="AK">Alaska</mat-option>
+            <mat-option value="AZ">Arizona</mat-option>
+            <mat-option value="AR">Arkansas</mat-option>
+            <mat-option value="CA">California</mat-option>
+            <mat-option value="CO">Colorado</mat-option>
+            <mat-option value="CT">Connecticut</mat-option>
+            <mat-option value="DE">Delaware</mat-option>
+            <mat-option value="DC">District Of Columbia</mat-option>
+            <mat-option value="FL">Florida</mat-option>
+            <mat-option value="GA">Georgia</mat-option>
+            <mat-option value="HI">Hawaii</mat-option>
+            <mat-option value="ID">Idaho</mat-option>
+            <mat-option value="IL">Illinois</mat-option>
+            <mat-option value="IN">Indiana</mat-option>
+            <mat-option value="IA">Iowa</mat-option>
+            <mat-option value="KS">Kansas</mat-option>
+            <mat-option value="KY">Kentucky</mat-option>
+            <mat-option value="LA">Louisiana</mat-option>
+            <mat-option value="ME">Maine</mat-option>
+            <mat-option value="MD">Maryland</mat-option>
+            <mat-option value="MA">Massachusetts</mat-option>
+            <mat-option value="MI">Michigan</mat-option>
+            <mat-option value="MN">Minnesota</mat-option>
+            <mat-option value="MS">Mississippi</mat-option>
+            <mat-option value="MO">Missouri</mat-option>
+            <mat-option value="MT">Montana</mat-option>
+            <mat-option value="NE">Nebraska</mat-option>
+            <mat-option value="NV">Nevada</mat-option>
+            <mat-option value="NH">New Hampshire</mat-option>
+            <mat-option value="NJ">New Jersey</mat-option>
+            <mat-option value="NM">New Mexico</mat-option>
+            <mat-option value="NY">New York</mat-option>
+            <mat-option value="NC">North Carolina</mat-option>
+            <mat-option value="ND">North Dakota</mat-option>
+            <mat-option value="OH">Ohio</mat-option>
+            <mat-option value="OK">Oklahoma</mat-option>
+            <mat-option value="OR">Oregon</mat-option>
+            <mat-option value="PA">Pennsylvania</mat-option>
+            <mat-option value="RI">Rhode Island</mat-option>
+            <mat-option value="SC">South Carolina</mat-option>
+            <mat-option value="SD">South Dakota</mat-option>
+            <mat-option value="TN">Tennessee</mat-option>
+            <mat-option value="TX">Texas</mat-option>
+            <mat-option value="UT">Utah</mat-option>
+            <mat-option value="VT">Vermont</mat-option>
+            <mat-option value="VA">Virginia</mat-option>
+            <mat-option value="WA">Washington</mat-option>
+            <mat-option value="WV">West Virginia</mat-option>
+            <mat-option value="WI">Wisconsin</mat-option>
+            <mat-option value="WY">Wyoming</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="auto">
+          <mat-label>Zip</mat-label>
+          <input
+            matInput
+            required
+            maxlength="50"
+            [(ngModel)]="ContactDetails.zip"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <h3>Phone Information</h3>
+    <div
+      fxLayout="column"
+      fxLayout.gt-xs="row"
+      fxLayoutGap="8px"
+      fxLayoutGap.gt-xs="24px"
+    >
+      <div fxFlex="auto" fxLayout="row" fxLayoutGap="8px">
+        <mat-form-field class="vex-flex-form-field" fxFlex="auto">
+          <mat-label>Phone Number</mat-label>
+          <input [(ngModel)]="ContactDetails!.phone" matInput maxlength="50" />
+          <mat-hint align="end"></mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="auto" fxLayout="row" fxLayoutGap="8px">
+        <mat-form-field class="vex-flex-form-field" fxFlex="auto">
+          <mat-label>Home Phone Number</mat-label>
+          <input
+            [(ngModel)]="ContactDetails!.homePhone"
+            matInput
+            maxlength="50"
+          />
+          <mat-hint align="end"></mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <div
+      fxLayout="column"
+      fxLayout.gt-xs="row"
+      fxLayoutGap="8px"
+      fxLayoutGap.gt-xs="24px"
+    >
+      <div fxFlex="auto" fxLayout="row" fxLayoutGap="8px">
+        <mat-form-field class="vex-flex-form-field" fxFlex="auto">
+          <mat-label>Fax Number</mat-label>
+          <input [(ngModel)]="ContactDetails!.fax" matInput maxlength="50" />
+          <mat-hint align="end"></mat-hint>
+        </mat-form-field>
+      </div>
+      <div fxFlex="auto" fxLayout="row" fxLayoutGap="8px">
+        <mat-form-field class="vex-flex-form-field" fxFlex="auto">
+          <mat-label>Business Number</mat-label>
+          <input
+            [(ngModel)]="ContactDetails!.businessPhone"
+            matInput
+            maxlength="50"
+          />
+          <mat-hint align="end"></mat-hint>
+        </mat-form-field>
+      </div>
+      <div fxFlex="auto" fxLayout="row" fxLayoutGap="8px">
+        <mat-form-field class="vex-flex-form-field" fxFlex="auto">
+          <mat-label>Mobile Phone</mat-label>
+          <input
+            [(ngModel)]="ContactDetails!.mobilePhone"
+            matInput
+            maxlength="50"
+          />
+          <mat-hint align="end"></mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+    <ng-container
+      *ngIf="this.appUtilityService.UserProfile$ | async as userProfile"
+    >
+      <ng-container *ngIf="userProfile.isAdmin == true">
+        <h3>Portal Account Information</h3>
+        <div
+          fxLayout="column"
+          fxLayout.gt-xs="row"
+          fxLayoutGap="8px"
+          fxLayoutGap.gt-xs="24px"
+        >
+          <div
+            *ngIf="
+              this.ContactDetails.isApplicationUser;
+              else inviteUserTemplate
+            "
+          >
+            <div fxFlex="auto" fxLayout="row" fxLayoutGap="8px">
+              <input
+                type="checkbox"
+                [checked]="ContactDetails!.isApplicationUser"
+                disabled="true"
+              />&nbsp;Is Application User &nbsp;
+            </div>
+
+            <div fxFlex="auto" fxLayout="row" fxLayoutGap="8px">
+              <input
+                type="checkbox"
+                [checked]="ContactDetails!.isPermaAdmin"
+                disabled="true"
+              />&nbsp;Is Perma Admin
+            </div>
+            <div *ngIf="this.newLoginResults$ | async as loginResult">
+              {{ loginResult }}
+            </div>
+          </div>
+
+          <ng-template #inviteUserTemplate>
+            <button
+              mat-button
+              color="primary"
+              type="button"
+              (click)="InviteUser()"
+            >
+              Invite User to Portal
+            </button>
+          </ng-template>
+        </div>
+        <div
+          *ngIf="
+            this.ContactDetails.isApplicationUser &&
+            ContactDetails!.isPermaAdmin == false
+          "
+        >
+          <button
+            mat-button
+            color="primary"
+            type="button"
+            (click)="Makeadmin()"
+          >
+            Make Admin
+          </button>
+        </div>
+      </ng-container></ng-container
+    >
+  </div>
+
+  <div class="px-6 py-4" fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+      <button mat-button type="button">CANCEL</button>
+      <button
+        color="primary"
+        mat-raised-button
+        type="button"
+        (click)="SaveContact()"
+      >
+        SAVE
+      </button>
+    </div>
+  </div>
+</div>

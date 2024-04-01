@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="8.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+		<PackageReference Include="Microsoft.Identity.Web" Version="2.17.1" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.19.1" />
+		<PackageReference Include="Microsoft.Graph" Version="5.44.0" />
+		<PackageReference Include="SendGrid" Version="9.29.2" />
+		<PackageReference Include="ClosedXML" Version="0.102.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="models\uploads\" />
+		<None Remove="Azure.Storage.Blobs" />
+		<None Remove="models\users\" />
+		<None Remove="Microsoft.Graph" />
+		<None Remove="SendGrid" />
+		<None Remove="ClosedXML" />
+		<None Remove="models\members\" />
+		<None Remove="reports\" />
+		<None Remove="reports\MemberPayroll_ByClass.xlsx" />
+		<None Remove="Data\Entities\" />
+		<None Remove="models\Requests\" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="models\uploads\" />
+		<Folder Include="models\users\" />
+		<Folder Include="models\members\" />
+		<Folder Include="reports\" />
+		<Folder Include="Data\Entities\" />
+		<Folder Include="models\Requests\" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="reports\MemberPayroll_ByClass.xlsx">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+</Project>

@@ -1,0 +1,95 @@
+<vex-secondary-toolbar current="Add Member">
+  <vex-breadcrumbs
+    [crumbs]="[
+      { title: 'Member List', routerLink: '/members' },
+      { title: 'Add Member' }
+    ]"
+    fxFlex="auto"
+  ></vex-breadcrumbs>
+  <button class="ml-2" color="primary" mat-icon-button type="button">
+    <mat-icon [icIcon]="icMoreVert"></mat-icon>
+  </button>
+</vex-secondary-toolbar>
+
+<div [@stagger]="true" class="p-gutter" vexContainer>
+  <div @fadeInUp class="card" fxFlex="auto">
+    <form [formGroup]="form">
+      <div
+        class="px-6 py-4 border-b"
+        fxLayout="row"
+        fxLayoutAlign="start center"
+      >
+        <h2 class="title m-0">Add Member</h2>
+      </div>
+
+      <div class="px-6 py-0" fxLayout="column">
+        <mat-form-field>
+          <mat-label>Member</mat-label>
+          <input
+            matInput
+            maxlength="250"
+            formControlName="memberName"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Member Number</mat-label>
+          <input
+            matInput
+            maxlength="50"
+            formControlName="memberNumber"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Type of Organization</mat-label>
+
+          <mat-select formControlName="organizationType">
+            <mat-option value="Public">Public</mat-option>
+            <mat-option value="Private">Private</mat-option>
+            <mat-option value="Not for Profit">Not for Profit</mat-option>
+            <mat-option value="Governmental">Governmental</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="px-6 py-0" fxLayout="column" fxLayoutGap.lt-sm="0">
+        <mat-checkbox
+          formControlName="noParentMember"
+          (change)="updateParentMember(noParentMember, $event)"
+          >No Parent Member</mat-checkbox
+        >
+      </div>
+      <div class="px-6 py-0" fxLayout="column" fxLayoutGap.lt-sm="0">
+        <mat-form-field>
+          <mat-label>Parent Member</mat-label>
+
+          <mat-select
+            formControlName="parentMemberId"
+            [compareWith]="parentComparisonFunction"
+          >
+            <mat-option
+              *ngFor="let member of availableMembers"
+              value="{{ member.memberId }}"
+            >
+              {{ member.memberName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="px-6 py-4" fxLayout="column">
+        <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+          <button mat-button type="button">CANCEL</button>
+          <button
+            color="primary"
+            mat-raised-button
+            type="button"
+            (click)="saveMember()"
+            [disabled]="isSaving"
+          >
+            SAVE
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

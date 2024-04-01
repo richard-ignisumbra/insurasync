@@ -1,0 +1,169 @@
+<vex-secondary-toolbar current="Application Reports">
+  <vex-breadcrumbs
+    [crumbs]="[
+      { title: 'Application List', routerLink: '/applications' },
+      { title: 'Application Reports', routerLink: 'reports' }
+    ]"
+    fxFlex="auto"
+  ></vex-breadcrumbs>
+</vex-secondary-toolbar>
+<h1>Application Reports</h1>
+<div class="pr-5 pt-2">
+  <div class="float-right"></div>
+</div>
+<div class="grid grid-flow-row auto-rows-max">
+  <div class="px-6 py-0" fxLayout="column">
+    <mat-form-field>
+      <mat-label>Coverage Year</mat-label>
+      <mat-select
+        [(ngModel)]="selectedCoverageYear"
+        (selectionChange)="onCoverageYearChanged($event)"
+      >
+        <mat-option *ngFor="let year of coverageyears" value="{{ year }}">
+          {{ year }}- {{ year + 1 }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="px-6 py-0" fxLayout="column">
+    <mat-form-field *ngIf="this.reportTypes$ | async as reportTypes">
+      <mat-label>Report Type</mat-label>
+      <mat-select
+        [(ngModel)]="filterReportType"
+        (selectionChange)="onFiltersChanged($event)"
+      >
+        <mat-option
+          *ngFor="let reportType of reportTypes"
+          value="{{ reportType.reportType }}"
+        >
+          {{ reportType.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="px-6 py-0" fxLayout="column">
+    <mat-form-field>
+      <mat-label>Application Status</mat-label>
+      <mat-select
+        [(ngModel)]="filterStatus"
+        (selectionChange)="onFiltersChanged($event)"
+      >
+        <mat-option value="all"> All </mat-option>
+        <mat-option value="Submitted"> Submitted </mat-option>
+        <mat-option value="Open"> Open </mat-option>
+        <mat-option value="New"> New </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<mat-tab-group #t (selectedTabChange)="onTabChange($event)">
+  <mat-tab label="Reports">
+    <div class="p-0">
+      <ng-container
+        *ngIf="this.ApplicationReports$ | async as applicationReports"
+      >
+        <div class="flex flex-col sm:flex-row">
+          <!-- <div class="flex-1">   </div> -->
+          <div
+            @fadeInUp
+            class="card mt-6 ml-4 mr-4"
+            *ngFor="let report of applicationReports"
+          >
+            <div class="flex-1 sm:ltr:ml-4 sm:rtl:mr-4 pr-4">
+              <div class="px-gutter py-4 flex items-center">
+                <div class="flex-auto">
+                  <p class="font-medium">{{ report.reportName }}</p>
+                  <p class="text-secondary font-medium text-xs">Full Export</p>
+                </div>
+              </div>
+
+              {{ report.reportDescription }}
+
+              <div class="flex justify-between">
+                <div
+                  class="px-gutter py-2 flex flex-row cursor-pointer select-none items-center text-primary ltr:rounded-bl rtl:rounded-br relative hover:bg-primary-light trans-ease-out"
+                  matRipple
+                  style="margin-left: auto"
+                >
+                  <ic-icon
+                    [icon]="icinsert_chart"
+                    [inline]="true"
+                    size="20px"
+                  ></ic-icon>
+                  <p
+                    class="font-medium ltr:ml-2 rtl:mr-2"
+                    (click)="runReport(report.reportId)"
+                  >
+                    Export Report
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </mat-tab>
+  <mat-tab label="Matching Members"
+    ><div>
+      <ng-container
+        *ngIf="this.ApplicationPreviews$ | async as applicationPreviews"
+      >
+        <div [swIsLoading]="{ key: 'appPreviews' }">
+          <vex-scrollbar #vexScrollbar class="p-4 flex-auto">
+            <ngx-datatable
+              [columnMode]="ColumnMode.force"
+              #ngxTable
+              class="material"
+              [rows]="applicationPreviews"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              rowHeight="auto"
+              [scrollbarH]="true"
+              (page)="(50)"
+              [ngClass]="'datatable'"
+            >
+              <ngx-datatable-column
+                name="Member"
+                [sortable]="false"
+                prop="member"
+              >
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Application"
+                [sortable]="false"
+                prop="applicationName"
+              >
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Application"
+                [sortable]="false"
+                prop="applicationType"
+              >
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column
+                name="Status"
+                [sortable]="false"
+                prop="applicationStatus"
+              >
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </vex-scrollbar>
+        </div>
+      </ng-container>
+    </div>
+  </mat-tab></mat-tab-group
+>

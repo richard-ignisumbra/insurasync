@@ -1,0 +1,23 @@
+<div class="px-6 py-4 border-b" fxLayout="row" fxLayoutAlign="start center">
+  <h2 class="title m-0">Submit Application</h2>
+</div>
+
+<div class="px-6 py-0" fxLayout="column">
+  Are you sure you want to submit the application? Once submitted, you won't be
+  able to make any more changes
+</div>
+
+<div class="px-6 py-4" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+    <button mat-button type="button" (click)="closeModal()">CANCEL</button>
+    <button
+      color="primary"
+      mat-raised-button
+      type="button"
+      (click)="submitApplication()"
+      [disabled]="isSaving"
+    >
+      Submit
+    </button>
+  </div>
+</div>

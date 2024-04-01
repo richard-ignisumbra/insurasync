@@ -1,0 +1,8 @@
+<p class="mt-0 mb-4 text-secondary" *ngIf="this.applicationElement.longText">
+  {{ this.applicationElement.longText }}
+</p>
+{{ this.applicationElement.shortName }}
+<mat-form-field class="mt-6">
+  <mat-label>Application Name</mat-label>
+  <input [formControlName]="this.applicationElement.shortName" matInput />
+</mat-form-field>

@@ -1,0 +1,93 @@
+<div class="px-6 py-4 border-b" fxLayout="row" fxLayoutAlign="start center">
+  <h2 class="title m-0">Add Attachment(s)</h2>
+</div>
+
+<div class="px-6 py-0" fxLayout="column">
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <mat-form-field fxFlex="auto">
+      <mat-label>Policy Period</mat-label>
+
+      <mat-select
+        [(ngModel)]="file_upload_config.policyPeriod"
+        required
+        required
+      >
+        <mat-option *ngFor="let year of years" [value]="year">
+          {{ year }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field fxFlex="auto">
+      <mat-label>Attachment Status</mat-label>
+
+      <mat-select [(ngModel)]="file_upload_config.status" required>
+        <mat-option value="Active">Active</mat-option>
+        <mat-option value="Inactive">Inactive</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <ng-container *ngIf="AttachmentCategories$ | async as attachmentCategories">
+      <mat-form-field fxFlex="auto">
+        <mat-label>Category</mat-label>
+        <mat-select
+          required
+          [(ngModel)]="file_upload_config.category"
+          (selectionChange)="onCategoryChange($event)"
+        >
+          <mat-option
+            *ngFor="let attachmentCategory of attachmentCategories"
+            [value]="attachmentCategory"
+          >
+            {{ attachmentCategory.categoryTitle }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+  </div>
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <mat-form-field fxFlex="auto">
+      <mat-label>Files Description</mat-label>
+
+      <textarea
+        [(ngModel)]="file_upload_config.description"
+        matInput
+        #lengthHint
+        rows="5"
+      ></textarea>
+    </mat-form-field>
+  </div>
+  <div>All Uploaded Files will have the same settings</div>
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <app-member-file-uploader
+      [config]="file_upload_config"
+      (UploadSuccess)="UploadSuccess($event)"
+    ></app-member-file-uploader>
+  </div>
+</div>
+
+<div class="px-6 py-4" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+    <button mat-button type="button" (click)="closeModal()">CANCEL</button>
+  </div>
+</div>

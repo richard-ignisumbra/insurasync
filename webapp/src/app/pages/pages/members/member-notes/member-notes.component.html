@@ -1,0 +1,126 @@
+<div @fadeInUp class="card" fxFlex="auto">
+  <div class="px-6 border-b">
+    <div class="p-5">
+      <div class="border-b" fxLayout="row" fxLayoutAlign="start center">
+        <h2 class="title m-0" *ngIf="MemberDetails$ | async as memberDetails">
+          {{ memberDetails.memberName }} [{{ memberDetails.memberNumber }}] -
+          Notes
+        </h2>
+      </div>
+      <div style="float: right">
+        <span #addNoteOriginRef>
+          <button
+            color="primary"
+            fxHide.xs
+            mat-raised-button
+            type="button"
+            (click)="showAddNote(addNoteOriginRef, null)"
+          >
+            <ic-icon
+              [icon]="icNoteAdd"
+              class="ltr:mr-2 rtl:ml-2 ltr:-ml-1 rtl:-mr-1"
+              inline="true"
+              size="20px"
+            ></ic-icon>
+            <span>Add Note</span>
+          </button>
+        </span>
+      </div>
+      <div style="padding-top: 15px">
+        Note Status Filter:
+        <mat-radio-group
+          aria-label="Select an option"
+          (change)="changeNotes($event)"
+          [(ngModel)]="selectedApplicationType"
+        >
+          <mat-radio-button value="">Both&nbsp;</mat-radio-button>
+          <mat-radio-button value="active" checked="true" class="mr-6 mb-6"
+            >Active
+          </mat-radio-button>
+          <mat-radio-button value="inactive">Inactive </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <div *ngIf="this.Notes$ | async as Notes">
+      <ngx-datatable
+        [columnMode]="ColumnMode.force"
+        #ngxTable
+        class="material"
+        [rows]="Notes"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="50"
+        [scrollbarH]="true"
+        (page)="(50)"
+      >
+        <ngx-datatable-column
+          name="Category"
+          [sortable]="false"
+          prop="categoryTitle"
+          [sortable]="true"
+        >
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column
+          name="Subject"
+          [sortable]="false"
+          prop="subject"
+          [sortable]="true"
+        >
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column
+          name="Status"
+          [sortable]="false"
+          prop="status"
+          [sortable]="true"
+        >
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column
+          name="CreatedBy"
+          [sortable]="false"
+          prop="createdBy"
+          [sortable]="true"
+        >
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column
+          name="Created Date"
+          [sortable]="false"
+          prop="createdDate"
+          [sortable]="true"
+        >
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value | date : "MM/dd/yyyy" }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="options" prop="contactId">
+          <ng-template
+            let-row="row"
+            let-value="value"
+            ngx-datatable-cell-template
+          >
+            <button
+              mat-button
+              matTooltip="View Details"
+              (click)="showAddNote(addNoteOriginRef, row.noteId)"
+              color="primary"
+            >
+              View
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+//This file will have the style variables that will be needed across the application.
+
+$modhyobitto-colors: (
+    primary: #7cb342,
+    primary-light: #aee571,
+    primary-dark: #4b830d,
+
+    notification: #B00020,
+    subtle-bg: #EEEEEE,
+    default-text: #000000,
+
+    disabled-text: rgb(0,0,0,0.26),
+    disabled-bg: rgb(0,0,0,0.12),
+    divider: rgb(0,0,0,0.12)
+);
+.mathis-file-uploader{
+    background-color: "gray";
+    border: 2px dashed "darkblue";
+    padding: 3rem;
+   
+ 
+    .files-for-upload{
+        margin-bottom: 3rem;
+        .selected-file{
+            border-radius: 0;
+            font-family: 'Roboto', sans-serif;
+            &:not(:last-of-type){
+                margin-bottom: 1rem;
+            }
+            .mat-expansion-panel-header{
+                cursor: default;
+                height: auto;
+                padding: 0;
+                &[aria-disabled=true]{
+                    color: inherit;
+                }
+                .selected-file__header{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    .selected-file__name{
+                        color: map-get($modhyobitto-colors, primary-dark);
+                        overflow: hidden;
+                        padding: 0 1.5rem;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                    .selected-file__actions{
+                        display: flex;
+                        justify-content: flex-end;
+                        button{
+                            display: flex;
+                            align-items: center;
+                            min-width: 0;
+                            padding: 0 15px;
+                        }
+                    }
+                }
+                &.mat-expanded{
+                    .selected-file__header{
+                        border-bottom: solid 1px map-get($modhyobitto-colors, divider);
+                    }
+                }
+                .mat-content{
+                    display: block;
+                }
+
+            }
+            .mat-expansion-panel-body{
+                padding-top: 1rem;
+                .selected-file__upload--error{
+                    color: map-get($modhyobitto-colors, notification);
+                }
+            }
+
+
+        }
+    }
+    .file-uploader__instructions{
+        color: map-get($modhyobitto-colors, primary);
+        margin-bottom: 3rem;
+        padding: 0 1rem;
+        text-align: center;
+    
+            margin-bottom: 2rem;
+       
+    }
+    .file-upload__options{
+        display: flex;
+        justify-content: center;
+        button{
+            &.all_file__upload, &.all_file__cancel{
+                display: flex;
+                align-items: center;
+                border-left: 2px solid map-get($modhyobitto-colors, subtle-bg);
+                min-width: 0;
+                padding: 0 15px;
+            }
+        }
+        .file-upload__native-selection{
+            display: none;
+        }
+    }
+}

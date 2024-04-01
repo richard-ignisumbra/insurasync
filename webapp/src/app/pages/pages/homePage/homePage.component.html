@@ -1,0 +1,43 @@
+<div @stagger>
+  <div class="bg-card py-16 px-gutter">
+    <h1 @fadeInUp class="display-2 mt-0 mb-4 text-center">
+      Underwriting Portal
+    </h1>
+    <div class="subheading-2 text-hint text-center max-w-lg mx-auto m-0 mb-4">
+      <img src="/assets/img/PERMA-Full.png" />
+    </div>
+    <h2
+      @fadeInUp
+      class="subheading-2 text-hint text-center max-w-lg mx-auto m-0"
+    >
+      Simple, transparent, effortless.
+    </h2>
+  </div>
+
+  <div @fadeInUp class="bg-card py-16 px-gutter footer">
+    <h3 class="subheading-2 text-hint text-center max-w-lg mx-auto m-0">
+      We're here to help, reach out to us and we'll get back to you soon.
+    </h3>
+
+    <div class="mt-16 max-w-3xl mx-auto flex flex-col md:flex-row">
+      <a
+        class="text-center p-6 border rounded md:w-1/2 md:mx-2"
+        routerLinkActive
+      >
+        <ic-icon [icon]="icPhoneInTalk" class="text-hint" size="42px"></ic-icon>
+        <h3 class="title mb-0 mt-4">+1 (760) 258-4259</h3>
+        <h4 class="subheading-2 m-0 text-hint">&nbsp;</h4>
+      </a>
+
+      <a
+        class="text-center p-6 border rounded md:w-1/2 md:mx-2"
+        routerLinkActive
+        href="mailto: memberservices@perma.org"
+      >
+        <ic-icon [icon]="icMail" class="text-hint" size="42px"></ic-icon>
+        <h3 class="title mb-0 mt-4">kachterberg@permarisk.gov</h3>
+        <h4 class="subheading-2 m-0 text-hint">&nbsp;</h4>
+      </a>
+    </div>
+  </div>
+</div>

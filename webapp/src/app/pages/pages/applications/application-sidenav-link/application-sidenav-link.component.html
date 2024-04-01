@@ -1,0 +1,19 @@
+<a
+  [routerLinkActiveOptions]="isActive"
+  [routerLink]="[appSection?.applicationSectionId]"
+  class="text-base flex items-center px-gutter ltr:rounded-r-full rtl:rounded-l-full ltr:mr-gutter rtl:ml-gutter relative mb-2 transition ease-in-out duration-200 select-none"
+  matRipple
+  routerLinkActive="active"
+>
+  <span style="color: green" class="block w-4">
+    <mat-icon [icIcon]="icFactCheck" *ngIf="appSection?.isCompleted"></mat-icon
+  ></span>
+  <span class="block header">{{ appSection?.sectionTitle }}</span>
+</a>
+<div
+  *ngIf="appSection?.subTitle !== ''"
+  class="sub-heading pl-12 pb-4 pr-2"
+  [routerLink]="[appSection?.applicationSectionId]"
+>
+  {{ appSection?.subTitle }}
+</div>

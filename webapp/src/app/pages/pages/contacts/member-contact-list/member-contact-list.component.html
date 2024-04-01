@@ -1,0 +1,104 @@
+<div @fadeInUp class="card" fxFlex="auto">
+  <div class="px-6 border-b">
+    <div class="p-5">
+      <div class="border-b" fxLayout="row" fxLayoutAlign="start center">
+        <h2 class="title m-0" *ngIf="MemberDetails$ | async as memberDetails">
+          {{ memberDetails.memberName }} [{{ memberDetails.memberNumber }}] -
+          Contacts
+        </h2>
+      </div>
+      <div style="text-align: right">
+        <span #addContactOriginRef>
+          <button
+            color="primary"
+            fxHide.xs
+            mat-raised-button
+            type="button"
+            (click)="showAddExistingContact(addContactOriginRef)"
+          >
+            <ic-icon
+              [icon]="icPersonAdd"
+              class="ltr:mr-2 rtl:ml-2 ltr:-ml-1 rtl:-mr-1"
+              inline="true"
+              size="20px"
+            ></ic-icon>
+            <span>Add Contact</span>
+          </button>
+        </span>
+      </div>
+    </div>
+    <div *ngIf="this.ContactList$ | async as Contacts">
+      <ngx-datatable
+        [columnMode]="ColumnMode.force"
+        #ngxTable
+        class="material"
+        [rows]="Contacts"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="50"
+        [scrollbarH]="true"
+        (page)="(50)"
+      >
+        <ngx-datatable-column
+          name="Contact Name"
+          [sortable]="true"
+          prop="displayName"
+        >
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column
+          name=""
+          [sortable]="false"
+          prop="isPrimaryContact"
+        >
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <div *ngIf="value === true">
+              <span>Primary</span>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column
+          name="Job Title"
+          [sortable]="true"
+          prop="jobtitle"
+        >
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value }}
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="options" prop="contactId">
+          <ng-template
+            let-row="row"
+            let-value="value"
+            ngx-datatable-cell-template
+          >
+            <button
+              mat-button
+              matTooltip="View Details"
+              (click)="viewDetails(row)"
+              color="primary"
+            >
+              View
+            </button>
+
+            <button (click)="remove(row.contactID)" mat-button color="primary">
+              Remove
+            </button>
+
+            <button
+              mat-button
+              (click)="makeprimary(row.contactID)"
+              color="primary"
+              *ngIf="row.isPrimaryContact === false"
+            >
+              Primary
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>

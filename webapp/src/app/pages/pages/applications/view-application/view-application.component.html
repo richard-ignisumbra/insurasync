@@ -1,0 +1,41 @@
+<div class="w-full h-full">
+  <vex-secondary-toolbar current="Application List">
+    <vex-breadcrumbs
+      [crumbs]="[{ title: 'Application List', routerLink: '/applications' }]"
+      fxFlex="auto"
+    ></vex-breadcrumbs>
+  </vex-secondary-toolbar>
+  <mat-progress-bar
+    *ngIf="isLoading | async"
+    mode="indeterminate"
+    color="warn"
+    style="position: absolute; top: 0; z-index: 100"
+  >
+  </mat-progress-bar>
+
+  <h2
+    class="pl-4"
+    *ngIf="this.ApplicationDetails$ | async as details"
+    [swIsLoading]="{ key: 'memberDetais' }"
+  >
+    {{ details.memberName }} - {{ details.coverageYear }} -
+    {{ details.applicationName }} - {{ details.applicationType }}
+  </h2>
+  <!-- class="h-full w-full" -->
+  <mat-drawer-container class="card overflow-hidden">
+    <mat-drawer [mode]="panelMode" [opened]="isOpen" #drawer>
+      <ng-container
+        *ngIf="this.applicationService.Sections$ | async as applicationSections"
+      >
+        <application-side-menu
+          [drawer]="drawer"
+          [applicationSections]="applicationSections"
+          [swIsLoading]="{ key: 'appSections' }"
+        ></application-side-menu>
+      </ng-container>
+    </mat-drawer>
+    <mat-drawer-content>
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

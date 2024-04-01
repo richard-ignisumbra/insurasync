@@ -1,0 +1,86 @@
+<div
+  class="w-full h-full flex flex-col"
+  vexContainer
+  *ngIf="this.applicationElements$ | async as applicationElements"
+>
+  <vex-scrollbar
+    #vexScrollbar
+    class="p-4 flex-auto"
+    [style]="'height: ' + this.availableHeight + 'px'"
+  >
+    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+      <form [formGroup]="form" novalidate style="min-height: 500px">
+        <div @fadeInUp class="p-4">
+          <div
+            *ngFor="let applicationElement of applicationElements"
+            fxLayout="column"
+          >
+            <div [ngSwitch]="applicationElement.elementType">
+              <ng-container *ngSwitchCase="elementType.Table">
+                <vex-view-element-table
+                  [ApplicationId]="this.applicationId"
+                  [formGroup]="this.form"
+                  [ApplicationElement]="applicationElement"
+                ></vex-view-element-table>
+              </ng-container>
+              <view-element-fileattachment
+                [ApplicationElement]="applicationElement"
+                [ApplicationId]="this.applicationId"
+                [SectionId]="this.sectionId"
+                *ngSwitchCase="elementType.Attachment"
+                [formGroup]="this.form"
+                [RowId]="0"
+              ></view-element-fileattachment>
+              <view-element
+                [ApplicationElement]="applicationElement"
+                [ApplicationId]="this.applicationId"
+                [SectionId]="this.sectionId"
+                *ngSwitchDefault
+                [formGroup]="this.form"
+                [RowId]="0"
+              ></view-element>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </vex-scrollbar>
+  <div
+    class="pr-4 pb-4 bg-app-bar border-t text-right pt-2"
+    *ngIf="{ value: isReadonly$ | async } as isReadonly"
+  >
+    <button
+      color="primary"
+      mat-button
+      type="button"
+      *ngIf="this.isFirst === false"
+      (click)="this.goPrevious()"
+    >
+      Previous
+    </button>
+    <button
+      color="primary"
+      mat-button
+      type="submit"
+      *ngIf="this.isLast === false"
+      (click)="this.goNext(isReadonly.value)"
+    >
+      <ng-container
+        *ngIf="isReadonly.value; then nextSection; else completeSection"
+      >
+      </ng-container>
+
+      <ng-template #completeSection>Complete Section</ng-template>
+      <ng-template #nextSection>Next</ng-template>
+    </button>
+    <button
+      color="primary"
+      mat-raised-button
+      type="submit"
+      *ngIf="this.isLast === true && isReadonly.value === false"
+      (click)="showSubmitApplication()"
+    >
+      Submit Application
+    </button>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="outside-form-label" *ngIf="this.showLabel">
+  {{ ApplicationElement.label }}
+</div>
+<div class="pl-4">
+  <b>Files</b>
+  <div *ngFor="let file of GetElementResponseValue()">
+    <a (click)="DownloadFile(file.FileId)" class="downloadFileLink">
+      {{ file.FileName }}</a
+    >
+  </div>
+</div>
+<div class="pl-4" *ngIf="this.ApplicationElement.readonly == false">
+  <app-mathis-file-uploader
+    [config]="file_upload_config"
+    (UploadSuccess)="UploadSuccess($event)"
+  ></app-mathis-file-uploader>
+</div>

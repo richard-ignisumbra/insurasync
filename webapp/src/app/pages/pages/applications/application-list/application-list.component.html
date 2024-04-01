@@ -1,0 +1,280 @@
+<vex-secondary-toolbar current="Applications">
+  <vex-breadcrumbs
+    [crumbs]="[{ title: 'Applications', routerLink: '/applications' }]"
+    fxFlex="auto"
+  ></vex-breadcrumbs>
+</vex-secondary-toolbar>
+<div class="flex flex-col items-stretch m-5">
+  <div class="flex justify-between items-center mb-5">
+    <h1 class="text-3xl">Applications</h1>
+    <div class="flex">
+      <!-- Action buttons go here -->
+      <!-- isAdmin Check -->
+      <ng-container
+        *ngIf="this.appUtilityService.UserProfile$ | async as userProfile"
+      >
+        <ng-container *ngIf="userProfile.isAdmin == true">
+          <span #createContactOriginRef class="mr-5">
+            <button
+              color="primary"
+              fxHide.xs
+              mat-raised-button
+              type="button"
+              (click)="showCreateApplication()"
+            >
+              <span>Create Application</span>
+            </button>
+          </span>
+        </ng-container></ng-container
+      >
+      <span #createContactOriginRef class="mr-5">
+        <button
+          color="primary"
+          fxHide.xs
+          mat-raised-button
+          type="button"
+          (click)="ExportData()"
+        >
+          <span>Export Coverage Year</span>
+        </button>
+      </span>
+      <span #createContactOriginRef class="mr-5">
+        <button
+          color="secondary"
+          fxHide.xs
+          mat-raised-button
+          type="button"
+          [routerLink]="['reports']"
+        >
+          <span>Reports</span>
+        </button>
+      </span>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="flex flex-col space-y-4 mb-5">
+    <mat-form-field>
+      <mat-label>Coverage Year</mat-label>
+      <mat-select
+        [(ngModel)]="selectedCoverageYear"
+        (selectionChange)="onCoverageYearChanged($event)"
+      >
+        <mat-option *ngFor="let year of coverageyears" value="{{ year }}">
+          {{ year }} - {{ year + 1 }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div
+      *ngIf="this.applicationTypes$ | async as applicationTypes"
+      class="filter-group"
+    >
+      <label class="filter-label">Application Type</label>
+      <mat-radio-group
+        class="filter-radio-group"
+        [(ngModel)]="filterApplicationType"
+        (change)="onFiltersChanged($event)"
+      >
+        <mat-radio-button
+          *ngFor="let reportType of applicationTypes"
+          [value]="reportType.applicationTypeId"
+          class="ml-4"
+        >
+          {{ reportType.type }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div
+      *ngIf="this.lineofCoverages$ | async as linesofCoverage"
+      class="filter-group"
+    >
+      <label class="filter-label">Coverage Line</label>
+      <mat-radio-group
+        class="filter-radio-group"
+        [(ngModel)]="filterLineofCoverage"
+        (change)="onFiltersChanged($event)"
+      >
+        <mat-radio-button value="all" class="ml-4">All</mat-radio-button>
+        <mat-radio-button
+          *ngFor="let lineofCoverage of linesofCoverage"
+          [value]="lineofCoverage"
+          class="ml-4"
+        >
+          {{ lineofCoverage }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div *ngIf="this.showQuarterlyFilter" class="filter-group">
+      <label class="filter-label">Quarter</label>
+      <mat-radio-group
+        class="filter-radio-group"
+        [(ngModel)]="filterQuarter"
+        (change)="onFiltersChanged($event)"
+      >
+        <mat-radio-button [value]="0" class="ml-4">all</mat-radio-button>
+        <mat-radio-button [value]="1" class="ml-4">first</mat-radio-button>
+        <mat-radio-button [value]="2" class="ml-4">second</mat-radio-button>
+        <mat-radio-button [value]="3" class="ml-4">third</mat-radio-button>
+        <mat-radio-button [value]="4" class="ml-4">fourth</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div *ngIf="this.showMonthlyFilter" class="filter-group">
+      <label class="filter-label">Month</label>
+      <mat-radio-group
+        class="filter-radio-group"
+        [(ngModel)]="filterMonth"
+        (change)="onFiltersChanged($event)"
+      >
+        <mat-radio-button [value]="0" class="ml-4">all</mat-radio-button>
+        <mat-radio-button [value]="1" class="ml-4">January</mat-radio-button>
+        <mat-radio-button [value]="2" class="ml-4">February</mat-radio-button>
+        <mat-radio-button [value]="3" class="ml-4">March</mat-radio-button>
+        <mat-radio-button [value]="4" class="ml-4">April</mat-radio-button>
+        <mat-radio-button [value]="5" class="ml-4">May</mat-radio-button>
+        <mat-radio-button [value]="6" class="ml-4">June</mat-radio-button>
+        <mat-radio-button [value]="7" class="ml-4">July</mat-radio-button>
+        <mat-radio-button [value]="8" class="ml-4">August</mat-radio-button>
+        <mat-radio-button [value]="9" class="ml-4">September</mat-radio-button>
+        <mat-radio-button [value]="10" class="ml-4">October</mat-radio-button>
+        <mat-radio-button [value]="11" class="ml-4">November</mat-radio-button>
+        <mat-radio-button [value]="12" class="ml-4">December</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="filter-group">
+      <label class="filter-label">Application Status</label>
+      <mat-radio-group
+        class="filter-radio-group"
+        [(ngModel)]="filterStatus"
+        (change)="onFiltersChanged($event)"
+      >
+        <mat-radio-button value="all" class="ml-4">All</mat-radio-button>
+        <mat-radio-button value="Submitted" class="ml-4"
+          >Submitted</mat-radio-button
+        >
+        <mat-radio-button value="Open" class="ml-4">Open</mat-radio-button>
+        <mat-radio-button value="New" class="ml-4">New</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+
+  <ng-container
+    *ngIf="this.ApplicationPreviews$ | async as applicationPreviews"
+  >
+    <div [swIsLoading]="{ key: 'appPreviews' }">
+      <vex-scrollbar #vexScrollbar class="p-4 flex-auto">
+        <ngx-datatable
+          [columnMode]="ColumnMode.force"
+          #ngxTable
+          class="material"
+          [rows]="applicationPreviews"
+          [headerHeight]="50"
+          [footerHeight]="50"
+          rowHeight="auto"
+          [scrollbarH]="true"
+          (page)="(50)"
+          (activate)="onActivate($event)"
+          [ngClass]="'datatable'"
+        >
+          <ngx-datatable-column name="Member" [sortable]="true" prop="member">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column
+            name="Application"
+            [sortable]="true"
+            prop="applicationName"
+          >
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column
+            name="Application"
+            [sortable]="true"
+            prop="applicationType"
+          >
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column
+            *ngIf="this.showQuarterlyFilter"
+            name="Quarter"
+            [sortable]="true"
+            prop="periodQuarter"
+          >
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column
+            *ngIf="this.showMonthlyFilter"
+            name="Month"
+            [sortable]="true"
+            prop="periodMonth"
+          >
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column
+            name="Status"
+            [sortable]="true"
+            prop="applicationStatus"
+          >
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column
+            name="Due Date"
+            [sortable]="true"
+            prop="dueDate"
+          >
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value | date : "MM/dd/yyyy" }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column
+            name="Completed Date"
+            [sortable]="true"
+            prop="completedDate"
+          >
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value | date : "MM/dd/yyyy" }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column
+            name="Completed By"
+            [sortable]="true"
+            prop="completedBy"
+          >
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              {{ value | date : "MM/dd/yyyy" }}
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="options" prop="applicationId">
+            <ng-template
+              let-row="row"
+              let-value="value"
+              ngx-datatable-cell-template
+            >
+              <button
+                mat-icon-button
+                matTooltip="Open Application"
+                (click)="viewDetails(row)"
+                matRipple
+                color="primary"
+              >
+                Open Application
+              </button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </vex-scrollbar>
+    </div>
+  </ng-container>
+</div>

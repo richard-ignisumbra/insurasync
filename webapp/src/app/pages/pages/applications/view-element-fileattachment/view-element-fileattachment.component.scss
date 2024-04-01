@@ -1,0 +1,30 @@
+$height: 64px;
+
+.vex-mail-header {
+  height: 56px;
+}
+
+@screen lg {
+  .vex-mail-header {
+    height: 200px;
+  }
+
+  .vex-mail-header-overflow {
+    height: $height;
+  }
+
+  .vex-mail-content-overflow {
+    margin-top: -$height;
+  }
+}
+
+.vex-mail-drawer {
+  border: 0 !important;
+}
+.mat-form-field-appearance-fill .mat-form-field-flex{
+  padding: 0 .2em, 0 .2em;
+}
+.mat-form-field:not(.mat-form-field-has-label) .mat-form-field-infix {
+  border-top-width: 0;
+}
+.downloadFileLink {cursor: pointer; color:purple; text-decoration: underline;}

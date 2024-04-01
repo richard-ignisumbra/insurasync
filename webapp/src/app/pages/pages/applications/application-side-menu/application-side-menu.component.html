@@ -1,0 +1,10 @@
+<div @stagger class="py-4">
+  <p @fadeInUp class="text-secondary text-lg font-bold px-gutter mb-2">
+    Sections
+  </p>
+  <application-sidenav-link
+    *ngFor="let appSection of applicationSections"
+    @fadeInUp
+    [appSection]="appSection"
+  ></application-sidenav-link>
+</div>

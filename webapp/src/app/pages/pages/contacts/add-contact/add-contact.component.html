@@ -1,0 +1,79 @@
+<div class="px-6 py-4 border-b" fxLayout="row" fxLayoutAlign="start center">
+  <h2 class="title m-0">Add Contact</h2>
+</div>
+
+<div class="px-6 py-0" fxLayout="column">
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <mat-form-field fxFlex="auto">
+      <mat-label>First Name</mat-label>
+      <input
+        matInput
+        maxlength="100"
+        required
+        [(ngModel)]="ContactDetails!.firstName"
+      />
+    </mat-form-field>
+    <mat-form-field fxFlex="auto">
+      <mat-label>Last Name</mat-label>
+      <input
+        matInput
+        maxlength="100"
+        required
+        [(ngModel)]="ContactDetails!.lastName"
+      />
+    </mat-form-field>
+  </div>
+
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <mat-form-field fxFlex="auto">
+      <mat-label>Contact Type</mat-label>
+
+      <mat-select [(ngModel)]="ContactDetails!.contactType" required>
+        <mat-option value="PERMA">PERMA</mat-option>
+        <mat-option value="Member">Member</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <mat-form-field fxFlex="auto">
+      <mat-label>E-Mail</mat-label>
+      <input
+        [(ngModel)]="ContactDetails!.email"
+        matInput
+        required
+        maxlength="100"
+      />
+      <mat-hint align="end">example@example.com</mat-hint>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="px-6 py-4" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+    <button mat-button type="button" (click)="closeModal()">CANCEL</button>
+    <button
+      color="primary"
+      mat-raised-button
+      type="button"
+      (click)="saveContact()"
+      [disabled]="isSaving"
+    >
+      SAVE
+    </button>
+  </div>
+</div>

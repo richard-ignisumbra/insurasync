@@ -1,0 +1,146 @@
+<form (ngSubmit)="save()" [formGroup]="form" novalidate>
+  <div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+    <h2 class="headline m-0" fxFlex="auto">New Application</h2>
+
+    <button
+      class="text-secondary"
+      mat-dialog-close
+      mat-icon-button
+      type="button"
+    >
+      <mat-icon [icIcon]="icClose"></mat-icon>
+    </button>
+  </div>
+
+  <mat-divider class="-mx-6 text-border"></mat-divider>
+
+  <mat-dialog-content fxLayout="column">
+    <mat-form-field class="mt-6">
+      <mat-label>Application Name</mat-label>
+      <input cdkFocusInitial formControlName="applicationName" matInput />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Member</mat-label>
+      <input
+        cdkFocusInitial
+        [formControl]="memberInputControl"
+        matInput
+        [matAutocomplete]="memberAutoComplete"
+        (blur)="checkForSelection()"
+      />
+      <mat-autocomplete
+        #memberAutoComplete="matAutocomplete"
+        [displayWith]="displayMember"
+        (optionSelected)="onMemberSelected($event)"
+      >
+        <mat-option
+          *ngFor="let option of filteredMembers$ | async"
+          [value]="option"
+        >
+          {{ option.memberName }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="memberInputControl.hasError('invalidMember')">
+        Please select a member from the list.
+      </mat-error>
+      <mat-icon
+        [icIcon]="icBusiness"
+        class="ltr:mr-3 rtl:ml-3"
+        matPrefix
+      ></mat-icon>
+    </mat-form-field>
+    <div>
+      Application Type:
+      <mat-radio-group
+        aria-label="Select an option"
+        formControlName="applicationTypeId"
+        *ngIf="applicationTypes$ | async as applicationType"
+      >
+        <mat-radio-button
+          [value]="option.applicationTypeId"
+          class="mr-6 mb-6"
+          *ngFor="let option of applicationType"
+          (change)="form.get('applicationTypeId').markAsTouched()"
+        >
+          {{ option.type }}
+        </mat-radio-button>
+      </mat-radio-group>
+      <div
+        *ngIf="form.get('applicationTypeId').hasError('required')"
+        class="text-red-500"
+      >
+        <small class="text-red">Please select an application type.</small>
+      </div>
+    </div>
+    <div *ngIf="displayQuarter$ | async">
+      Reporting Quarter:
+      <mat-radio-group
+        aria-label="Select a quarter"
+        formControlName="periodQuarter"
+      >
+        <mat-radio-button [value]="1" class="mr-6 mb-6">
+          First
+        </mat-radio-button>
+        <mat-radio-button [value]="2" class="mr-6 mb-6">
+          Second
+        </mat-radio-button>
+        <mat-radio-button [value]="3" class="mr-6 mb-6">
+          Third
+        </mat-radio-button>
+        <mat-radio-button [value]="4" class="mr-6 mb-6">
+          Fourth
+        </mat-radio-button>
+      </mat-radio-group>
+      <div *ngIf="form.get('periodQuarter').errors" class="text-red-500">
+        <small class="text-red">Please select the period quarter.</small>
+      </div>
+    </div>
+
+    <mat-form-field *ngIf="displayMonth$ | async">
+      <mat-label> Reporting Month</mat-label>
+      <mat-select
+        aria-label="Select the reporting month"
+        formControlName="periodMonth"
+      >
+        <mat-option value="1"> January </mat-option>
+        <mat-option value="2"> February </mat-option>
+        <mat-option value="3"> March </mat-option>
+        <mat-option value="4"> April </mat-option>
+        <mat-option value="5"> May </mat-option>
+        <mat-option value="6"> June </mat-option>
+        <mat-option value="7"> July </mat-option>
+        <mat-option value="8"> August </mat-option>
+        <mat-option value="9"> September </mat-option>
+        <mat-option value="10"> October </mat-option>
+        <mat-option value="11"> November </mat-option>
+        <mat-option value="12"> December </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Due Date</mat-label>
+      <input
+        [matDatepicker]="datepickerRef"
+        formControlName="dueDate"
+        matInput
+      />
+      <mat-datepicker-toggle
+        [for]="datepickerRef"
+        class="block"
+        matPrefix
+      ></mat-datepicker-toggle>
+      <mat-datepicker #datepickerRef></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Policy Year</mat-label>
+      <input cdkFocusInitial formControlName="coverageYear" matInput />
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">CANCEL</button>
+    <button color="primary" mat-button type="submit" [disabled]="isSaving">
+      SAVE CHANGES
+    </button>
+  </mat-dialog-actions>
+</form>

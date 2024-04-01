@@ -1,0 +1,32 @@
+ 
+.datatable-body{ cursor: pointer;}
+
+.ngx-datatable.bootstrap:not(.cell-selection) .datatable-body-row:hover,
+.ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group
+{ 
+   background: red; cursor:pointer;
+}
+ngx-datatable {
+   max-height: 70vh;
+   overflow-y: scroll;
+ }
+
+ ::ng-deep .ngx-datatable .datatable-body {
+   max-height: 900px !important;
+   overflow: hidden auto;
+}
+
+label { font-weight: bold}
+.filter-group {
+    display: flex;
+    align-items: center; /* Aligns items vertically */
+  }
+
+  .filter-label {
+    width: 150px; /* Adjust this width as needed */
+    margin-right: 1rem; /* Creates space between the label and the radio buttons */
+  }
+
+  .filter-radio-group {
+    flex-grow: 1; /* Allows the radio group to fill the remaining space */
+  }

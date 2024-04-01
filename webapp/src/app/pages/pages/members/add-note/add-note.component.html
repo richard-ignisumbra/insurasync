@@ -1,0 +1,103 @@
+<div class="px-6 py-4 border-b" fxLayout="row" fxLayoutAlign="start center">
+  <h2 class="title m-0">Add Note</h2>
+</div>
+
+<div class="px-6 py-0" fxLayout="column">
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <mat-form-field fxFlex="auto">
+      <mat-label>Subject</mat-label>
+      <input
+        matInput
+        maxlength="100"
+        required
+        [(ngModel)]="NoteDetails!.subject"
+      />
+    </mat-form-field>
+  </div>
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <ng-container *ngIf="NoteCategories$ | async as noteCategories">
+      <mat-form-field fxFlex="auto">
+        <mat-label>Category</mat-label>
+        <mat-select
+          required
+          [(ngModel)]="NoteCategory"
+          (selectionChange)="onCategoryChange($event)"
+        >
+          <mat-option
+            *ngFor="let noteCategory of noteCategories"
+            [value]="noteCategory"
+          >
+            {{ noteCategory.categoryTitle }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+  </div>
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <mat-form-field fxFlex="auto">
+      <mat-label>Note Status</mat-label>
+
+      <mat-select [(ngModel)]="NoteDetails!.status" required>
+        <mat-option value="Active">Active</mat-option>
+        <mat-option value="Inactive">Inactive</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutGap="16px"
+    fxLayoutGap.lt-sm="0"
+  >
+    <mat-form-field fxFlex="auto">
+      <mat-label>Content</mat-label>
+
+      <textarea
+        [(ngModel)]="NoteDetails!.content"
+        matInput
+        #lengthHint
+        rows="5"
+      ></textarea>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="px-6 py-4" fxLayout="column">
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="8px">
+    <button mat-button type="button" (click)="closeModal()">CANCEL</button>
+    <button
+      color="red"
+      mat-raised-button
+      type="button"
+      (click)="deleteNote()"
+      [disabled]="isSaving"
+      *ngIf="this.NoteDetails!.noteId"
+    >
+      DELETE
+    </button>
+    <button
+      color="primary"
+      mat-raised-button
+      type="button"
+      (click)="saveNoteForm()"
+      [disabled]="isSaving"
+    >
+      SAVE
+    </button>
+  </div>
+</div>
